@@ -1,11 +1,13 @@
-package br.com.xavier.zipper.interfaces;
+package br.com.xavier.zipper.interfaces.compression;
 
-import java.io.InputStream;
 import java.io.Serializable;
 
-public interface ZipperCompresser extends Serializable {
+import br.com.xavier.zipper.interfaces.io.IZipperInput;
+import br.com.xavier.zipper.interfaces.io.IZipperOutput;
 
-	ZipperCompresser add(String zipEntryName, InputStream zipEntryContentStream);
-	ZipperOutput output();
+public interface IZipperCompresser extends Serializable {
+
+	IZipperCompresser add(IZipperInput zipperInput);
+	IZipperOutput output();
 	
 }

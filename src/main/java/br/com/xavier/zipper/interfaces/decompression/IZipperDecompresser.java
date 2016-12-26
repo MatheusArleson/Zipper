@@ -1,10 +1,13 @@
-package br.com.xavier.zipper.interfaces;
+package br.com.xavier.zipper.interfaces.decompression;
 
 import java.io.Serializable;
 
-public interface ZipperDecompresser extends Serializable {
+import br.com.xavier.zipper.interfaces.io.IZipperInput;
+import br.com.xavier.zipper.interfaces.io.IZipperOutput;
+
+public interface IZipperDecompresser extends Serializable {
 	
-	ZipperDecompresser from( ZipperInput input );
-	ZipperOutput output();
+	IZipperDecompresser from( IZipperInput input );
+	IZipperOutput output();
 
 }

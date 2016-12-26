@@ -1,13 +1,10 @@
-package br.com.xavier.zipper.interfaces;
+package br.com.xavier.zipper.interfaces.io;
 
-import java.io.File;
 import java.io.Serializable;
 
-public interface ZipperInput extends Serializable {
+public interface IZipperInput extends Serializable {
 
-	ZipperInput fromByteArray(byte[] bytes);
-	ZipperInput fromBase64(String base64Str);
-	ZipperInput fromFile(File inputFile);
-	ZipperInput fromResponse();
+	String getZipEntryName();
+	byte[] getZipEntryContent();
 
 }

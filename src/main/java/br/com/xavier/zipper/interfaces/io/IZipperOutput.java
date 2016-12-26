@@ -1,11 +1,11 @@
-package br.com.xavier.zipper.interfaces;
+package br.com.xavier.zipper.interfaces.io;
 
 import java.io.File;
 import java.io.Serializable;
 
 import javax.ws.rs.core.Response;
 
-public interface ZipperOutput extends Serializable {
+public interface IZipperOutput extends Serializable {
 	
 	byte[] toByteArray();
 	String toBase64();
