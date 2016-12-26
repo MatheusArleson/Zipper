@@ -5,6 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.CheckedOutputStream;
@@ -57,6 +59,9 @@ public class SandBox {
 				System.out.println("##> ZIP ENTRY CHECKSUM > " + zipEntryChecksum);
 				
 				entry.setCrc( zipEntryChecksum );
+				entry.setCreationTime( FileTime.from( Instant.now() ) );
+				entry.setLastModifiedTime( FileTime.from( Instant.now() ) );
+				
 				bis.close();
 			}
 			
