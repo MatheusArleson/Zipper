@@ -7,7 +7,7 @@ import br.com.xavier.zipper.interfaces.decompression.IZipperDecompresserBuilder;
 
 public interface IZipper extends Serializable {
 	
-	IZipperCompresserBuilder prepareCompresser( );
+	IZipperCompresserBuilder prepareCompresser();
 	IZipperDecompresserBuilder prepareDecompress();
 	
 }

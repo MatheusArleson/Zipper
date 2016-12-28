@@ -1,14 +1,15 @@
 package br.com.xavier.zipper.impl.compression;
 
 import br.com.xavier.zipper.abstractions.compression.AbstractZipperCompresser;
+import br.com.xavier.zipper.interfaces.compression.IZipperCompresserConfig;
 
-class ZipperCompresser extends AbstractZipperCompresser {
-	
-	private static final long serialVersionUID = -7682472274281174968L;
+public class ZipperCompresser extends AbstractZipperCompresser {
+
+	private static final long serialVersionUID = 7992303233061093156L;
 
 	//XXX CONSTRUCTOR
-	protected ZipperCompresser( Long bufferBytesSize ) {
-		super( bufferBytesSize );
+	public ZipperCompresser(IZipperCompresserConfig compresserConfiguration) {
+		super(compresserConfiguration);
 	}
 	
 }
