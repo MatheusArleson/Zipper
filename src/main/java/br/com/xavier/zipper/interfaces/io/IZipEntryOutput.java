@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import javax.ws.rs.core.Response;
 
-public interface IZipperOutput extends Serializable {
+public interface IZipEntryOutput extends Serializable {
 	
 	byte[] toByteArray();
 	String toBase64();

@@ -1,8 +1,8 @@
 package br.com.xavier.zipper.impl;
 
 import br.com.xavier.zipper.abstractions.AbstractZipper;
-import br.com.xavier.zipper.interfaces.compression.IZipperCompresserBuilder;
-import br.com.xavier.zipper.interfaces.decompression.IZipperDecompresserBuilder;
+import br.com.xavier.zipper.interfaces.compression.ICompresserBuilder;
+import br.com.xavier.zipper.interfaces.decompression.IDecompresserBuilder;
 
 public final class Zipper extends AbstractZipper {
 	
@@ -15,12 +15,12 @@ public final class Zipper extends AbstractZipper {
 	
 	//XXX OVERRIDE METHODS
 	@Override
-	protected IZipperCompresserBuilder getZipperCompresserBuilderInstance() {
+	protected ICompresserBuilder getZipperCompresserBuilderInstance() {
 		return null;
 	}
 	
 	@Override
-	protected IZipperDecompresserBuilder getZipperDecompresserBuilderInstance() {
+	protected IDecompresserBuilder getZipperDecompresserBuilderInstance() {
 		// TODO Auto-generated method stub
 		return null;
 	}

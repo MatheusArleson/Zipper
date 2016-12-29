@@ -4,7 +4,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.zip.Checksum;
 
-public interface IZipperCompresserConfig extends Serializable {
+import br.com.xavier.zipper.enums.CompressStrategy;
+
+public interface ICompresserConfig extends Serializable {
 	
 	OutputStream getBufferOutputStream();
 	void setBufferOutputStream( OutputStream os);
@@ -15,6 +17,7 @@ public interface IZipperCompresserConfig extends Serializable {
 	Checksum getChecksumGenerator();
 	void setChecksumGenerator( Checksum checksumGenerator );
 	
-	
+	CompressStrategy getCompressStrategy();
+	void setCompressStrategy( CompressStrategy compressStrategy);
 
 }
