@@ -1,5 +1,6 @@
 package br.com.xavier.zipper.abstractions.compression;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -23,7 +24,7 @@ public abstract class AbstractLazyCompresser extends AbstractCompresser {
 
 	//XXX OVERRIDE METHODS
 	@Override
-	public ICompresser add(IZipEntryInput zipperEntryInput) {
+	public ICompresser add(IZipEntryInput zipperEntryInput) throws IOException {
 		if( zipperEntryInput == null ){
 			throw new IllegalArgumentException( "Zip entry input cannot be null." );
 		}
@@ -33,7 +34,7 @@ public abstract class AbstractLazyCompresser extends AbstractCompresser {
 	}
 	
 	@Override
-	public IZipEntryOutput output() {
+	public IZipEntryOutput output() throws IOException {
 		compress( zipEntriesInputs );
 		
 		return null;
