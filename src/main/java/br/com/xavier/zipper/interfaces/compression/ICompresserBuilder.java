@@ -1,18 +1,17 @@
 package br.com.xavier.zipper.interfaces.compression;
 
-import java.io.OutputStream;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.zip.Checksum;
 
+import br.com.xavier.zipper.enums.BufferMode;
 import br.com.xavier.zipper.enums.CompressStrategy;
 
 public interface ICompresserBuilder extends Serializable {
 	
-	ICompresserBuilder buffer( OutputStream os );
+	ICompresserBuilder bufferMode( BufferMode bufferMode );
 	ICompresserBuilder bytesPerRead( Integer bytesPerRead );
-	ICompresserBuilder checksum( Checksum checksum );
 	ICompresserBuilder strategy( CompressStrategy compressStrategy );
 	
-	ICompresser build();
+	ICompresser build() throws IOException;
 
 }

@@ -9,8 +9,8 @@ public final class ZipperInput extends AbstractZipEntryInput {
 	private static final long serialVersionUID = -2833661483982467571L;
 	
 	//XXX CONSTRUCTOR
-	public ZipperInput(String zipEntryName, InputStream zipEntryContentStream) {
-		super(zipEntryName, zipEntryContentStream);
+	public ZipperInput( String zipEntryName, InputStream zipEntryContentStream ) {
+		super( zipEntryName, zipEntryContentStream );
 	}
 	
 }

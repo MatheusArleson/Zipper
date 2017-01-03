@@ -1,9 +1,8 @@
 package br.com.xavier.zipper.abstractions.compression;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.util.zip.Checksum;
+import java.io.IOException;
 
+import br.com.xavier.zipper.enums.BufferMode;
 import br.com.xavier.zipper.enums.CompressStrategy;
 import br.com.xavier.zipper.interfaces.compression.ICompresser;
 import br.com.xavier.zipper.interfaces.compression.ICompresserBuilder;
@@ -14,65 +13,58 @@ public abstract class AbstractCompresserBuilder implements ICompresserBuilder {
 	private static final long serialVersionUID = 6038018187329066597L;
 	
 	//XXX PROPERTIES
-	private ICompresserConfig compresserConfig;
+	private BufferMode bufferMode;
+	private Integer bytesPerRead;
+	private CompressStrategy compressStrategy;
 	
 	//XXX CONSTRUCTOR
-	public AbstractCompresserBuilder() {
-		this.compresserConfig = getZipperCompresserConfigInstance();
-	}
+	public AbstractCompresserBuilder() { }
 	
 	//XXX ABSTRACT METHODS
-	protected abstract ICompresserConfig getZipperCompresserConfigInstance( );
-	protected abstract ICompresser getZipperCompresserInstance( ICompresserConfig compresserConfig );
+	protected abstract ICompresserConfig getCompresserConfigInstance( BufferMode bufferMode, Integer bytesPerRead, CompressStrategy compressStrategy );
+	protected abstract ICompresser getCompresserInstance( ICompresserConfig config ) throws IOException;
 	
 	//XXX OVERRIDE METHODS
 	@Override
-	public ICompresserBuilder buffer( OutputStream os ) {
-		this.compresserConfig.setBufferOutputStream( os ); 
+	public ICompresserBuilder bufferMode( BufferMode bufferMode ) {
+		this.bufferMode = bufferMode; 
 		return this;
 	}
 	
 	@Override
 	public ICompresserBuilder bytesPerRead( Integer bytesPerRead ) {
-		this.compresserConfig.setBytesPerRead( bytesPerRead );
-		return this;
-	}
-	
-	@Override
-	public ICompresserBuilder checksum( Checksum checksumGenerator ) {
-		this.compresserConfig.setChecksumGenerator( checksumGenerator );
+		this.bytesPerRead = bytesPerRead;
 		return this;
 	}
 	
 	@Override
 	public ICompresserBuilder strategy( CompressStrategy compressStrategy ) {
-		this.compresserConfig.setCompressStrategy( compressStrategy );
+		this.compressStrategy = compressStrategy;
 		return this;
 	}
 	
 	@Override
-	public ICompresser build() {
+	public ICompresser build() throws IOException {
 		preventNullConfigProperties();
 		
-		ICompresser compresserInstance = getZipperCompresserInstance( compresserConfig );
+		ICompresserConfig config = getCompresserConfigInstance( bufferMode, bytesPerRead, compressStrategy );
+		ICompresser compresserInstance = getCompresserInstance( config );
 		return compresserInstance;
 	}
 
 	//XXX PRIVATE METHODS
 	private void preventNullConfigProperties() {
-		if( compresserConfig.getBytesPerRead() == null ){
-			compresserConfig.setBytesPerRead( 1024 );
+		if( bytesPerRead == null ){
+			bytesPerRead = ICompresserConfig.DEFAULT_BYTES_PER_READ;
 		}
 		
-		if( compresserConfig.getBufferOutputStream() == null ){
-			ByteArrayOutputStream baos = new ByteArrayOutputStream( compresserConfig.getBytesPerRead() );
-			compresserConfig.setBufferOutputStream( baos );
+		if( bufferMode == null ){
+			bufferMode = ICompresserConfig.DEFAULT_BUFFER_MODE;
 		}
 		
-		if( compresserConfig.getCompressStrategy() == null ){
-			compresserConfig.setCompressStrategy( CompressStrategy.LAZY );
+		if( compressStrategy == null ){
+			compressStrategy = ICompresserConfig.DEFAULT_COMPRESS_STRATEGY;
 		}
-		
 	}
 
 }

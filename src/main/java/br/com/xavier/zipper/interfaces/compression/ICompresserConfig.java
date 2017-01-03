@@ -1,23 +1,18 @@
 package br.com.xavier.zipper.interfaces.compression;
 
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.zip.Checksum;
 
+import br.com.xavier.zipper.enums.BufferMode;
 import br.com.xavier.zipper.enums.CompressStrategy;
 
 public interface ICompresserConfig extends Serializable {
 	
-	OutputStream getBufferOutputStream();
-	void setBufferOutputStream( OutputStream os);
+	static final BufferMode DEFAULT_BUFFER_MODE = BufferMode.DISK;
+	static final int DEFAULT_BYTES_PER_READ = 4096;
+	static final CompressStrategy DEFAULT_COMPRESS_STRATEGY = CompressStrategy.LAZY;
 	
+	BufferMode getBufferMode();
 	Integer getBytesPerRead();
-	void setBytesPerRead( Integer bytesPerRead );
-	
-	Checksum getChecksumGenerator();
-	void setChecksumGenerator( Checksum checksumGenerator );
-	
 	CompressStrategy getCompressStrategy();
-	void setCompressStrategy( CompressStrategy compressStrategy);
 
 }

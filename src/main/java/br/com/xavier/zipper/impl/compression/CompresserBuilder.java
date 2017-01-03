@@ -1,6 +1,9 @@
 package br.com.xavier.zipper.impl.compression;
 
+import java.io.IOException;
+
 import br.com.xavier.zipper.abstractions.compression.AbstractCompresserBuilder;
+import br.com.xavier.zipper.enums.BufferMode;
 import br.com.xavier.zipper.enums.CompressStrategy;
 import br.com.xavier.zipper.interfaces.compression.ICompresser;
 import br.com.xavier.zipper.interfaces.compression.ICompresserConfig;
@@ -14,25 +17,13 @@ public final class CompresserBuilder extends AbstractCompresserBuilder {
 	
 	//XXX OVERRIDE METHODS
 	@Override
-	protected ICompresserConfig getZipperCompresserConfigInstance() {
-		return new CompresserConfiguration();
+	protected ICompresserConfig getCompresserConfigInstance(BufferMode bufferMode, Integer bytesPerRead, CompressStrategy compressStrategy) {
+		return new CompresserConfiguration( bufferMode, bytesPerRead, compressStrategy );
 	}
-
+	
 	@Override
-	protected ICompresser getZipperCompresserInstance(ICompresserConfig compresserConfig) {
-		CompressStrategy compressStrategy = compresserConfig.getCompressStrategy();
-		switch ( compressStrategy ) {
-		case EAGER:
-			return new EagerCompresser( compresserConfig );
-			
-		case LAZY:
-			return new LazyCompresser( compresserConfig );
-
-		default:
-			throw new UnsupportedOperationException("Unknow compress strategy.");
-		}
-		
+	protected ICompresser getCompresserInstance( ICompresserConfig configuration ) throws IOException {
+		return new Compresser( configuration );
 	}
-
 
 }
