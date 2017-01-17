@@ -8,7 +8,7 @@ import br.com.xavier.zipper.interfaces.io.IZipEntryInput;
 
 public interface ICompresser extends Serializable {
 
-	ICompresser add( IZipEntryInput zipEntryInput ) throws IOException;
-	<T> T output( ITransform<T> transformer  ) throws IOException;
+	ICompresser add(IZipEntryInput zipEntryInput) throws IOException;
+	<T> T output(ITransform<T> transformer) throws IOException;
 	
 }

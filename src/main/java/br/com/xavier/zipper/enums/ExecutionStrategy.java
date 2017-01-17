@@ -1,6 +1,6 @@
 package br.com.xavier.zipper.enums;
 
-public enum CompressStrategy {
+public enum ExecutionStrategy {
 	
 	EAGER,
 	LAZY;
