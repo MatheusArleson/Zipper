@@ -8,7 +8,6 @@ import br.com.xavier.zipper.interfaces.io.ITransform;
 
 public class Base64ZipEntryTransform implements ITransform<String> {
 
-
 	@Override
 	public String transform( InputStream inputStream ) throws IOException {
 		byte[] buffer = new byte[10];

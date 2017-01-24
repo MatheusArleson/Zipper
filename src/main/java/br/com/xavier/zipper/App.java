@@ -14,10 +14,10 @@ public class App {
 
 			FileOutputStream fos = new FileOutputStream("D:\\MyFile.zip");
 			ZipOutputStream zos = new ZipOutputStream(fos);
-			
+
 			ZipEntry ze = new ZipEntry("test.log");
 			zos.putNextEntry(ze);
-			
+
 			FileInputStream in = new FileInputStream("D:\\teste.log");
 
 			int len;
@@ -38,4 +38,3 @@ public class App {
 		}
 	}
 }
-

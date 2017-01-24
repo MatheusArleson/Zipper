@@ -6,9 +6,9 @@ import java.io.OutputStream;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import br.com.xavier.zipper.interfaces.io.stream.IReadableOutputStream;
+import br.com.xavier.zipper.interfaces.io.stream.IReadable;
 
-public abstract class AbstractReadableOutputStream<T extends OutputStream> extends OutputStream implements IReadableOutputStream<T> {
+public abstract class AbstractReadableOutputStream<T extends OutputStream> extends OutputStream implements IReadable {
 	
 	//XXX PROPERTIES
 	private AtomicBoolean readOnlyLock;
@@ -31,11 +31,42 @@ public abstract class AbstractReadableOutputStream<T extends OutputStream> exten
 		close();
 		readOnlyLock.set(true);
 		
-		return transformToInputStream(outputStream);
+		InputStream inputStream = transformToInputStream(outputStream);
+		return inputStream;
+	}
+	
+	@Override
+	public void write(int b) throws IOException {
+		checkReadOnlyState();
+		outputStream.write(b);
+	}
+
+	@Override
+	public void write(byte[] b) throws IOException {
+		checkReadOnlyState();
+		outputStream.write(b);
+	}
+	
+	@Override
+	public void write(byte[] b, int off, int len) throws IOException {
+		checkReadOnlyState();
+		outputStream.write(b, off, len);
+	}
+
+	@Override
+	public void flush() throws IOException {
+		checkReadOnlyState();
+		outputStream.flush();
+	}
+
+	@Override
+	public void close() throws IOException {
+		checkReadOnlyState();
+		outputStream.close();
 	}
 	
 	//XXX ABSTRACT METHODS
-	protected abstract InputStream transformToInputStream(T outputStream) throws IOException;
+	protected abstract InputStream transformToInputStream(T outStream) throws IOException;
 	
 	//XXX DELEGATE METHODS
 	public int hashCode() {
@@ -44,31 +75,6 @@ public abstract class AbstractReadableOutputStream<T extends OutputStream> exten
 	
 	public boolean equals(Object obj) {
 		return outputStream.equals(obj);
-	}
-
-	public void write(int b) throws IOException {
-		checkReadOnlyState();
-		outputStream.write(b);
-	}
-
-	public void write(byte[] b) throws IOException {
-		checkReadOnlyState();
-		outputStream.write(b);
-	}
-	
-	public void write(byte[] b, int off, int len) throws IOException {
-		checkReadOnlyState();
-		outputStream.write(b, off, len);
-	}
-
-	public void flush() throws IOException {
-		checkReadOnlyState();
-		outputStream.flush();
-	}
-
-	public void close() throws IOException {
-		checkReadOnlyState();
-		outputStream.close();
 	}
 
 	public String toString() {

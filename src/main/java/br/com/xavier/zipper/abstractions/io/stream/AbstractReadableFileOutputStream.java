@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public abstract class AbstractReadableFileOutputStream extends AbstractReadableOutputStream<FileOutputStream>{
+public abstract class AbstractReadableFileOutputStream extends AbstractReadableOutputStream<FileOutputStream> {
 	
 	//XXX PROPERTIES
 	private File file;
@@ -18,11 +18,12 @@ public abstract class AbstractReadableFileOutputStream extends AbstractReadableO
 	
 	public AbstractReadableFileOutputStream(File file) throws IOException {
 		super(new FileOutputStream(file));
+		this.file = file;
 	}
 	
 	//XXX OVERRIDE METHODS
 	@Override
-	protected final InputStream transformToInputStream(FileOutputStream outputStream) throws IOException {
+	protected final InputStream transformToInputStream(FileOutputStream fileOutputStream) throws IOException {
 		InputStream fis = new FileInputStream(file);
 		return fis;
 	}

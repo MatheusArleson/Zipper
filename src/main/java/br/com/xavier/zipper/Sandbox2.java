@@ -15,38 +15,35 @@ import br.com.xavier.zipper.interfaces.compression.ICompresser;
 import br.com.xavier.zipper.interfaces.io.IZipEntryInput;
 
 public class Sandbox2 {
-	
+
 	public static void main(String[] args) throws IOException {
-//		Zipper zipper = new Zipper();
-//		
-//		ICompresser compresser = zipper.prepareCompresser()
-//											.bytesPerRead( 8096 )
-//											.bufferLocation( BufferLocation.DISK )
-//											.storageMode( StorageMode.COMPRESSED )
-//											.executionStrategy( ExecutionStrategy.LAZY )
-//											.build();
-//		
-//		IZipEntryInput zipperInput = null;
-//		compresser.add( zipperInput );
-		
-		
-		//compresser.output(  );
-		
-		
+		// Zipper zipper = new Zipper();
+		//
+		// ICompresser compresser = zipper.prepareCompresser()
+		// .bytesPerRead( 8096 )
+		// .bufferLocation( BufferLocation.DISK )
+		// .storageMode( StorageMode.COMPRESSED )
+		// .executionStrategy( ExecutionStrategy.LAZY )
+		// .build();
+		//
+		// IZipEntryInput zipperInput = null;
+		// compresser.add( zipperInput );
+
+		// compresser.output( );
+
 		String str = "teste";
-		
+
 		AbstractReadableOutputStream aros = new ReadableByteArrayOutputStream();
 		aros.write(str.getBytes());
-		
+
 		InputStream is = aros.toInputStream();
 		byte[] isBuffer = new byte[is.available()];
-		
+
 		is.read(isBuffer);
-		
+
 		String str2 = new String(isBuffer);
 		System.out.println(str2);
-		
-		
+
 	}
 
 }

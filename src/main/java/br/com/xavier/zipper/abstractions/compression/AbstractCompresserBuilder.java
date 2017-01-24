@@ -2,7 +2,6 @@ package br.com.xavier.zipper.abstractions.compression;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.zip.ZipOutputStream;
 
 import br.com.xavier.zipper.abstractions.io.stream.AbstractReadableOutputStream;
 import br.com.xavier.zipper.enums.BufferLocation;
@@ -53,17 +52,19 @@ public abstract class AbstractCompresserBuilder implements ICompresserBuilder {
 	public ICompresser build() throws IOException {
 		preventNullConfigProperties();
 		
-		AbstractReadableOutputStream<? extends OutputStream> stream = processBufferLocation(bufferLocation);
-		ZipOutputStream zipOutputStream = processStorageMode(storageMode, bytesPerRead, stream);
+		AbstractReadableOutputStream<? extends OutputStream> readableStream = processBufferLocation(bufferLocation);
+		ICompresser compresserInstance = generateCompresserInstance(readableStream, this.bytesPerRead, this.storageMode, this.executionStrategy);
 		
-		
-		ICompresser compresserInstance = null;
 		return compresserInstance;
 	}
-	
+
 	//XXX ABSTRACT METHODS
 	protected abstract AbstractReadableOutputStream<? extends OutputStream> processBufferLocation(BufferLocation bufferLocation) throws IOException;
-	protected abstract ZipOutputStream processStorageMode(StorageMode storageMode, Integer bytesPerRead, AbstractReadableOutputStream<? extends OutputStream> readableStream) throws IOException;
+	
+	protected abstract ICompresser generateCompresserInstance(
+		AbstractReadableOutputStream<? extends OutputStream> readableStream,
+		Integer bytesPerRead, StorageMode storageMode, ExecutionStrategy executionStrategy
+	) throws IOException;
 
 	//XXX PRIVATE METHODS
 	private void preventNullConfigProperties() {
