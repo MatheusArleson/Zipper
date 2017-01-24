@@ -39,7 +39,7 @@ public abstract class AbstractCompresserBuilder implements ICompresserBuilder {
 	@Override
 	public ICompresserBuilder storageMode(StorageMode storageMode) {
 		this.storageMode = storageMode;
-		return null;
+		return this;
 	}
 	
 	@Override
