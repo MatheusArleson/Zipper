@@ -1,4 +1,4 @@
-package br.com.xavier.zipper.interfaces.io;
+package br.com.xavier.zipper.interfaces.io.transform;
 
 import java.io.IOException;
 import java.io.InputStream;

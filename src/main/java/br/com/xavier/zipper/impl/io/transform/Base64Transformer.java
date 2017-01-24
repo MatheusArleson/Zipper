@@ -1,10 +1,10 @@
-package br.com.xavier.zipper.impl.io;
+package br.com.xavier.zipper.impl.io.transform;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 
-import br.com.xavier.zipper.interfaces.io.ITransform;
+import br.com.xavier.zipper.interfaces.io.transform.ITransform;
 
 public class Base64Transformer implements ITransform<String> {
 

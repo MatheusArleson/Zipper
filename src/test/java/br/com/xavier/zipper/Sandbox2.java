@@ -1,5 +1,6 @@
 package br.com.xavier.zipper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -7,8 +8,8 @@ import br.com.xavier.zipper.enums.BufferLocation;
 import br.com.xavier.zipper.enums.ExecutionStrategy;
 import br.com.xavier.zipper.enums.StorageMode;
 import br.com.xavier.zipper.impl.Zipper;
-import br.com.xavier.zipper.impl.io.Base64Transformer;
 import br.com.xavier.zipper.impl.io.ZipperInput;
+import br.com.xavier.zipper.impl.io.transform.FileTransformer;
 import br.com.xavier.zipper.interfaces.compression.ICompresser;
 import br.com.xavier.zipper.interfaces.io.IZipEntryInput;
 
@@ -19,9 +20,9 @@ public class Sandbox2 {
 
 		ICompresser compresser = zipper.prepareCompresser()
 										.bytesPerRead(8096)
-										.bufferLocation(BufferLocation.DISK)
+										.bufferLocation(BufferLocation.MEMORY)
 										.storageMode(StorageMode.COMPRESSED)
-										.executionStrategy(ExecutionStrategy.LAZY)
+										.executionStrategy(ExecutionStrategy.EAGER)
 										.build();
 		
 		String txtFileName = "lorem.txt";
@@ -30,10 +31,13 @@ public class Sandbox2 {
 		IZipEntryInput zipperInput = new ZipperInput(txtFileName, txtStream);
 		compresser.add(zipperInput);
 		
-		Base64Transformer base64Transformer = new Base64Transformer();
-		String output = compresser.output(base64Transformer);
+		//Base64Transformer transformer = new Base64Transformer();
+		//String output = compresser.output(transformer);
+		//System.out.println(output);
 		
-		System.out.println(output);
+		FileTransformer transformer = new FileTransformer("out.zip");
+		File outputFile = compresser.output(transformer);
+		System.out.println(outputFile.getAbsolutePath());
 
 	}
 

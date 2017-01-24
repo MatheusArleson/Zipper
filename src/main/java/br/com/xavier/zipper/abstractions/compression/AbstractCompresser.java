@@ -19,9 +19,9 @@ import br.com.xavier.zipper.abstractions.io.stream.AbstractReadableOutputStream;
 import br.com.xavier.zipper.enums.ExecutionStrategy;
 import br.com.xavier.zipper.enums.StorageMode;
 import br.com.xavier.zipper.interfaces.compression.ICompresser;
-import br.com.xavier.zipper.interfaces.io.ITransform;
 import br.com.xavier.zipper.interfaces.io.IZipEntryInput;
 import br.com.xavier.zipper.interfaces.io.stream.IReadable;
+import br.com.xavier.zipper.interfaces.io.transform.ITransform;
 
 public abstract class AbstractCompresser implements ICompresser {
 
@@ -101,6 +101,9 @@ public abstract class AbstractCompresser implements ICompresser {
 		if(ExecutionStrategy.isLazy(this.executionStrategy)){
 			compress(this.zipEntries);
 		}
+		
+		this.zipOutputStream.flush();
+		this.zipOutputStream.close();
 		
 		InputStream bufferedZipContent = this.readableOutputStream.toInputStream();
 		return transformer.transform(bufferedZipContent);
